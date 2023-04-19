@@ -14,13 +14,13 @@ function hasCountArgv() {
 function getFilteredData() {
     const filter = getFilter();
     
-    const isIncludesFilter = ({ name }) => name.toLowerCase().includes(filter?.toLowerCase());
+    const isIncludedFilter = ({ name }) => name.toLowerCase().includes(filter?.toLowerCase());
     
     return data.map(country => ({
         ...country,
         people: country.people.map((p) => ({
             ...p,
-            animals: p.animals.filter(isIncludesFilter),
+            animals: p.animals.filter(isIncludedFilter),
         })).filter(({ animals }) => animals.length),
     })).filter(({ people }) => people.length);
 }
@@ -30,7 +30,7 @@ function getDataWithCount() {
         return data;
     }
     const addChildCountToName = (name, child) => {
-        return `${name} [${child.length}]`
+        return `${name} [${child.length}]`;
     }
     return data.map(country => ({
         name: addChildCountToName(country.name, country.people),
